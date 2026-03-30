@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Admin Portal | ATELIER NOIR</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { 
+        "surface":"#faf8f5", "surface-dim":"#f0ede8",
+        "navy":"#1a1a2e", "secondary":"#8a8580",
+        "gold":"#c9a96e", "gold-light":"#ddc9a3", "gold-dark":"#a68a4b",
+        "on-surface":"#1a1a2e", "on-surface-variant":"#5a5652"
+      },
+      fontFamily: { "headline":["Noto Serif"],"body":["Inter"],"label":["Inter"] },
+      boxShadow: { "soft":"0 4px 20px rgba(0,0,0,0.03)", "pill":"0 8px 16px rgba(26,26,46,0.15)" },
+    }}}
+  </script>
+  <style>
+    /* Custom Scrollbar for sidebar & tables */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #e9e6e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #d0c0c0; }
+    .nav-btn.active { background-color: #1a1a2e; color: #ffffff; box-shadow: 0 8px 16px rgba(26,26,46,0.12); }
+    .nav-btn.active .nav-icon { color: #c9a96e; }
+    .nav-btn:not(.active) { color: #8a8580; }
+    .nav-btn:not(.active):hover { background-color: rgba(26,26,46,0.03); color: #1a1a2e; }
+  </style>
+</head>
+<body class="bg-surface font-body text-on-surface flex overflow-hidden h-screen">
+
+  <!-- Sidebar -->
+  <aside class="w-[280px] bg-white border-r border-[#efece7] flex flex-col z-50 h-full flex-shrink-0">
+    <!-- Logo -->
+    <div class="px-8 pt-10 pb-8 flex flex-col">
+      <h1 class="font-headline text-2xl font-bold tracking-[0.2em] text-navy uppercase">ATELIER</h1>
+      <p class="text-[9px] uppercase tracking-[0.2em] text-secondary mt-1 font-medium">Management Portal</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+      <button class="nav-btn active w-full flex items-center gap-4 px-5 py-3.5 rounded-xl font-body text-sm font-medium transition-all" data-tab="dashboard">
+        <span class="material-symbols-outlined nav-icon text-[20px]">dashboard</span> Dashboard
+      </button>
+      <button class="nav-btn w-full flex items-center gap-4 px-5 py-3.5 rounded-xl font-body text-sm font-medium transition-all" data-tab="orders">
+        <span class="material-symbols-outlined nav-icon text-[20px]">shopping_bag</span> Orders
+      </button>
+      <button class="nav-btn w-full flex items-center gap-4 px-5 py-3.5 rounded-xl font-body text-sm font-medium transition-all" data-tab="products">
+        <span class="material-symbols-outlined nav-icon text-[20px]">inventory_2</span> Products
+      </button>
+      <button class="nav-btn w-full flex items-center gap-4 px-5 py-3.5 rounded-xl font-body text-sm font-medium transition-all" data-tab="customers">
+        <span class="material-symbols-outlined nav-icon text-[20px]">group</span> Customers
+      </button>
+      <button class="nav-btn w-full flex items-center gap-4 px-5 py-3.5 rounded-xl font-body text-sm font-medium transition-all" data-tab="messages">
+        <span class="material-symbols-outlined nav-icon text-[20px]">mail</span> Messages
+      </button>
+    </nav>
+
+    <!-- Bottom Profile -->
+    <div class="p-6 space-y-4">
+      <div class="p-4 rounded-2xl bg-[#faf8f5] flex items-center gap-3 border border-[#efece7]">
+        <div class="w-10 h-10 rounded-full bg-navy flex items-center justify-center flex-shrink-0 text-white font-bold font-headline text-sm uppercase">AD</div>
+        <div class="overflow-hidden">
+          <p class="font-bold text-sm text-navy truncate">Administrator</p>
+          <p class="text-[10px] text-secondary uppercase tracking-widest truncate">admin@atelier.com</p>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <a href="index.html" class="flex items-center gap-3 px-4 py-2 text-xs font-bold uppercase tracking-widest text-secondary hover:text-navy transition-colors">
+          <span class="material-symbols-outlined text-[18px]">storefront</span> View Storefront
+        </a>
+        <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 text-xs font-bold uppercase tracking-widest text-red-400 hover:text-red-600 transition-colors">
+          <span class="material-symbols-outlined text-[18px]">logout</span> Logout
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col h-full overflow-hidden bg-surface">
+    
+    <!-- Top Header -->
+    <header class="h-20 flex justify-between items-center px-8 md:px-12 flex-shrink-0 border-b border-transparent bg-transparent z-40">
+      <div class="relative w-full max-w-md">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+        <input class="w-full pl-12 pr-4 py-3 rounded-full bg-white border border-[#efece7] shadow-soft focus:ring-1 focus:ring-gold focus:border-gold outline-none text-sm text-navy placeholder:text-[#b5b0aa] transition-all" placeholder="Quick search..."/>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="w-10 h-10 rounded-full bg-white border border-[#efece7] flex items-center justify-center text-secondary hover:text-navy hover:shadow-soft transition-all relative">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-2 right-2.5 w-2 h-2 rounded-full bg-red-400"></span>
+        </button>
+        <button class="w-10 h-10 rounded-full bg-white border border-[#efece7] flex items-center justify-center text-secondary hover:text-navy hover:shadow-soft transition-all">
+          <span class="material-symbols-outlined text-[20px]">settings</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Panels Wrapper -->
+    <div class="flex-1 overflow-y-auto px-8 md:px-12 py-6">
+
+      <!-- ================= DASHBOARD PANEL ================= -->
+      <div id="panel-dashboard" class="admin-panel animate-fade-in block space-y-8">
+        <!-- Title & Actions -->
+        <div class="flex justify-between items-end">
+          <div>
+            <h2 class="font-headline text-3xl font-bold tracking-tight text-navy">System Overview</h2>
+            <p class="text-secondary text-sm font-medium mt-1">Live insights into your business metrics</p>
+          </div>
+          <div class="flex gap-3 hidden sm:flex">
+            <button onclick="refreshData(this)" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-[#efece7] shadow-soft text-xs font-bold uppercase tracking-widest text-navy hover:bg-surface-dim transition-colors">
+              <span class="material-symbols-outlined text-[16px]">refresh</span> <span class="btn-text">Refresh Stats</span>
+            </button>
+            <button onclick="openProductModal()" class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-navy text-white shadow-pill text-xs font-bold uppercase tracking-widest hover:bg-gold transition-colors">
+              <span class="material-symbols-outlined text-[16px]">add</span> Add Product
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white p-6 rounded-3xl shadow-soft border border-[#efece7] relative overflow-hidden">
+            <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center mb-6"><span class="material-symbols-outlined text-green-500 text-[20px]">attach_money</span></div>
+            <p class="text-[9px] uppercase tracking-widest text-secondary font-bold mb-1">Gross Revenue</p>
+            <h3 class="font-headline text-3xl font-bold text-navy" id="stat-revenue">$0.00</h3>
+            <p class="text-xs text-[#b5b0aa] mt-2">Total Lifetime Sales</p>
+            <span class="absolute top-6 right-6 text-[9px] text-green-500 font-bold uppercase tracking-widest bg-green-50 px-2 py-1 rounded">LIVE DELTA</span>
+          </div>
+          <div class="bg-white p-6 rounded-3xl shadow-soft border border-[#efece7] relative overflow-hidden">
+            <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center mb-6"><span class="material-symbols-outlined text-purple-500 text-[20px]">local_mall</span></div>
+            <p class="text-[9px] uppercase tracking-widest text-secondary font-bold mb-1">Total Orders</p>
+            <h3 class="font-headline text-3xl font-bold text-navy" id="stat-orders">0</h3>
+            <p class="text-xs text-[#b5b0aa] mt-2">Customer Transactions</p>
+          </div>
+          <div class="bg-white p-6 rounded-3xl shadow-soft border border-[#efece7] relative overflow-hidden">
+            <div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center mb-6"><span class="material-symbols-outlined text-orange-500 text-[20px]">inventory_2</span></div>
+            <p class="text-[9px] uppercase tracking-widest text-secondary font-bold mb-1">Total Products</p>
+            <h3 class="font-headline text-3xl font-bold text-navy">12</h3> <!-- Static for now -->
+            <p class="text-xs text-[#b5b0aa] mt-2">Active Inventory</p>
+          </div>
+          <div class="bg-white p-6 rounded-3xl shadow-soft border border-[#efece7] relative overflow-hidden">
+            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center mb-6"><span class="material-symbols-outlined text-blue-500 text-[20px]">people</span></div>
+            <p class="text-[9px] uppercase tracking-widest text-secondary font-bold mb-1">Total Customers</p>
+            <h3 class="font-headline text-3xl font-bold text-navy" id="stat-users">0</h3>
+            <p class="text-xs text-[#b5b0aa] mt-2">Registered Base</p>
+          </div>
+        </div>
+
+        <!-- Charts Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 bg-white p-8 rounded-3xl shadow-soft border border-[#efece7]">
+            <div class="flex justify-between items-center mb-8">
+              <div class="flex gap-3 items-center"><span class="material-symbols-outlined text-gold">bar_chart</span><h3 class="font-bold text-navy text-lg">Revenue Evolution</h3></div>
+              <div class="flex gap-2">
+                <span class="text-[10px] uppercase font-bold text-secondary cursor-pointer hover:text-navy">7D</span>
+                <span class="text-[10px] uppercase font-bold text-white bg-navy px-3 py-1 rounded-full">30D</span>
+                <span class="text-[10px] uppercase font-bold text-secondary cursor-pointer hover:text-navy">6M</span>
+              </div>
+            </div>
+            <div class="h-64 w-full"><canvas id="revenueChart"></canvas></div>
+          </div>
+          <div class="lg:col-span-1 bg-white p-8 rounded-3xl shadow-soft border border-[#efece7] flex flex-col">
+            <h3 class="font-bold text-navy text-lg mb-8 text-center">Sales Status Composition</h3>
+            <div class="flex-1 flex flex-col items-center justify-center relative">
+               <div class="h-48 w-full"><canvas id="statusChart"></canvas></div>
+               <!-- Absolute centering label -->
+               <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-2">
+                  <h2 class="text-3xl font-bold font-headline text-navy" id="status-total-orders">0</h2>
+                  <p class="text-[10px] uppercase tracking-widest text-secondary">Orders</p>
+               </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-6">
+              <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-[#1a1a2e]"></div><span class="text-[10px] uppercase tracking-widest font-bold text-secondary">Pending</span></div>
+              <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-[#c9a96e]"></div><span class="text-[10px] uppercase tracking-widest font-bold text-secondary">Shipped</span></div>
+              <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-[#2dd4bf]"></div><span class="text-[10px] uppercase tracking-widest font-bold text-secondary">Completed</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= ORDERS PANEL ================= -->
+      <div id="panel-orders" class="admin-panel hidden space-y-6">
+        <h2 class="font-headline text-3xl font-bold tracking-tight text-navy mb-8">Orders Management</h2>
+        <div class="bg-white rounded-3xl shadow-soft border border-[#efece7] overflow-hidden p-2">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead><tr class="text-[10px] uppercase tracking-widest text-[#b5b0aa] bg-surface-dim/50 border-b border-[#efece7]">
+                <th class="py-5 px-6 font-bold rounded-tl-xl rounded-bl-xl">Order ID</th><th class="py-5 px-6 font-bold">Customer</th><th class="py-5 px-6 font-bold">Total</th><th class="py-5 px-6 font-bold">Status</th><th class="py-5 px-6 font-bold">Date</th><th class="py-5 px-6 font-bold rounded-tr-xl rounded-br-xl">Action</th>
+              </tr></thead>
+              <tbody id="orders-tbody" class="text-sm"></tbody>
+            </table>
+            <p id="no-orders" class="hidden text-center py-16 text-secondary font-medium">No orders found.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= PRODUCTS PANEL ================= -->
+      <div id="panel-products" class="admin-panel hidden space-y-6">
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="font-headline text-3xl font-bold tracking-tight text-navy">Products Catalog</h2>
+          <button onclick="openProductModal()" class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-navy text-white shadow-pill text-xs font-bold uppercase tracking-widest hover:bg-gold transition-colors">
+            <span class="material-symbols-outlined text-[16px]">add</span> Add Product
+          </button>
+        </div>
+        <div class="bg-white rounded-3xl shadow-soft border border-[#efece7] overflow-hidden p-2">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead><tr class="text-[10px] uppercase tracking-widest text-[#b5b0aa] bg-surface-dim/50 border-b border-[#efece7]">
+                <th class="py-5 px-6 font-bold rounded-tl-xl rounded-bl-xl">Product</th><th class="py-5 px-6 font-bold">Category</th><th class="py-5 px-6 font-bold">Price</th><th class="py-5 px-6 font-bold rounded-tr-xl rounded-br-xl text-right">Actions</th>
+              </tr></thead>
+              <tbody id="catalog-tbody" class="text-sm"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= CUSTOMERS PANEL ================= -->
+      <div id="panel-customers" class="admin-panel hidden space-y-6">
+        <h2 class="font-headline text-3xl font-bold tracking-tight text-navy mb-8">Customer Base</h2>
+        <div class="bg-white rounded-3xl shadow-soft border border-[#efece7] overflow-hidden p-2">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead><tr class="text-[10px] uppercase tracking-widest text-[#b5b0aa] bg-surface-dim/50 border-b border-[#efece7]">
+                <th class="py-5 px-6 font-bold rounded-tl-xl rounded-bl-xl">Name</th><th class="py-5 px-6 font-bold">Email</th><th class="py-5 px-6 font-bold">Role</th><th class="py-5 px-6 font-bold rounded-tr-xl rounded-br-xl">Joined Date</th>
+              </tr></thead>
+              <tbody id="customers-tbody" class="text-sm"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= MESSAGES PANEL ================= -->
+      <div id="panel-messages" class="admin-panel hidden space-y-6">
+        <h2 class="font-headline text-3xl font-bold tracking-tight text-navy mb-8">Client Inquiries</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="messages-list"></div>
+        <p id="no-messages" class="hidden text-center py-16 text-secondary font-medium col-span-2">Inbox is empty.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Add Product Modal -->
+  <div id="product-modal" class="fixed inset-0 bg-navy/50 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-all duration-300">
+    <div class="bg-white rounded-3xl p-8 w-[90%] max-w-md shadow-pill relative">
+      <button onclick="closeProductModal()" class="absolute top-6 right-6 text-secondary hover:text-navy"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      <h3 class="font-headline text-2xl text-navy font-bold mb-6">Add New Product</h3>
+      <form id="add-product-form" class="space-y-4">
+        <div>
+          <label class="block text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">Product Name</label>
+          <input required type="text" id="p-name" placeholder="e.g. Leather Jacket" class="w-full border border-[#efece7] rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-gold focus:border-gold outline-none text-navy">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">Price ($)</label>
+            <input required type="number" step="0.01" id="p-price" placeholder="0.00" class="w-full border border-[#efece7] rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-gold focus:border-gold outline-none text-navy">
+          </div>
+          <div>
+            <label class="block text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">Category</label>
+            <select required id="p-cat" class="w-full border border-[#efece7] rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-gold focus:border-gold outline-none text-navy">
+              <option value="tops">Tops</option>
+              <option value="bottoms">Bottoms</option>
+              <option value="dresses">Dresses</option>
+              <option value="outerwear">Outerwear</option>
+              <option value="accessories">Accessories</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">Image URL</label>
+          <input required type="url" id="p-img" placeholder="https://..." value="https://lh3.googleusercontent.com/aida-public/AB6AXuB_MuteUkKL4iIxjCw63Pl8Dde5fz-e5WbPRjqlEyC6ROnSUbilyMbh5tJrohGdojkiL6Id0_4gVKXLfa1KjGRSLwtgIOUBcpfojM9K0r07EJf0V243sBF7S6CrhmPnNp8Z50urIo7eY72siGtjUn4IdHGhiQoLbk6v6O28nTZzHbjV9ImSWJMCO1P60wcnM-oz6eBOFRw2Gw0uYxx2UST9z6fQNZ-QMwQTuMttMsctXhw-yH9XDRNzduvUmXGAwe9duvTEu8oXhEo" class="w-full border border-[#efece7] rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-gold focus:border-gold outline-none text-secondary">
+        </div>
+        <button type="submit" class="w-full bg-navy text-white text-xs font-bold uppercase tracking-widest py-3.5 rounded-xl hover:bg-gold transition-colors mt-6">Save Product</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  if (!user || user.role !== 'admin') { window.location.href = 'login.html'; }
+
+  // Logic to handle custom tabs
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      // remove active
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // switch panel
+      document.querySelectorAll('.admin-panel').forEach(p => { p.classList.add('hidden'); p.classList.remove('block'); });
+      document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('block');
+    });
+  });
+
+  // Chart instances
+  let revChart, stChart;
+
+  async function refreshData(btn) {
+    const icon = btn.querySelector('.material-symbols-outlined');
+    const text = btn.querySelector('.btn-text');
+    icon.classList.add('animate-spin');
+    text.textContent = 'Refreshing...';
+    btn.disabled = true;
+    
+    await loadDashboard();
+    if(typeof loadProducts === 'function') await loadProducts();
+    
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      text.textContent = 'Refresh Stats';
+      btn.disabled = false;
+    }, 500);
+  }
+
+  async function loadDashboard() {
+    try {
+      const res = await fetch('/api/admin/stats');
+      if (!res.ok) { window.location.href = 'login.html'; return; }
+      const data = await res.json();
+
+      // Top Stats
+      document.getElementById('stat-users').textContent = data.totalUsers;
+      document.getElementById('stat-orders').textContent = data.totalOrders;
+      document.getElementById('stat-revenue').textContent = '$' + data.totalRevenue.toLocaleString(undefined, {minimumFractionDigits: 2});
+
+      // Update Orders Dashboard Count
+      document.getElementById('status-total-orders').textContent = data.totalOrders;
+
+      // Extract details for charts
+      let pending = 0, shipped = 0, completed = 0;
+      data.recentOrders.forEach(o => {
+        if(o.status === 'pending') pending++;
+        if(o.status === 'shipped') shipped++;
+        if(o.status === 'completed') completed++;
+      });
+      // Fallback if no data to show the beautiful donut from the picture
+      if(pending===0 && shipped===0 && completed===0) { pending = 0; shipped = 0; completed = 0; }
+
+      initCharts(pending, shipped, completed);
+
+      // Render Orders
+      const otbody = document.getElementById('orders-tbody');
+      if (data.recentOrders.length === 0) { document.getElementById('no-orders').classList.remove('hidden'); otbody.innerHTML = ''; }
+      else { 
+        document.getElementById('no-orders').classList.add('hidden');
+        otbody.innerHTML = data.recentOrders.map(o => `
+        <tr class="border-b border-surface-dim hover:bg-[#faf8f5] transition-colors group">
+          <td class="py-5 px-6 font-bold text-navy">#ATL-${o.id}</td>
+          <td class="py-5 px-6"><p class="font-medium text-navy">${o.customer_name || 'Guest'}</p><p class="text-[10px] text-secondary tracking-wide">${o.customer_email || ''}</p></td>
+          <td class="py-5 px-6 font-bold text-gold-dark">$${o.total.toFixed(2)}</td>
+          <td class="py-5 px-6"><span class="text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${o.status==='completed'?'bg-teal-50 text-teal-600':o.status==='shipped'?'bg-gold/10 text-gold-dark':'bg-navy/5 text-navy'}">${o.status}</span></td>
+          <td class="py-5 px-6 text-xs text-secondary font-medium">${new Date(o.created_at).toLocaleDateString()}</td>
+          <td class="py-5 px-6">
+            <select onchange="updateOrder(${o.id}, this.value)" class="text-[10px] uppercase font-bold tracking-widest bg-white border border-[#efece7] rounded-lg px-3 py-2 cursor-pointer focus:ring-1 focus:ring-gold outline-none text-navy">
+              <option ${o.status==='pending'?'selected':''} value="pending">Pending</option>
+              <option ${o.status==='shipped'?'selected':''} value="shipped">Shipped</option>
+              <option ${o.status==='completed'?'selected':''} value="completed">Completed</option>
+            </select>
+          </td>
+        </tr>`).join(''); 
+      }
+
+      // Render Customers
+      document.getElementById('customers-tbody').innerHTML = data.users.map(u => `
+        <tr class="border-b border-surface-dim hover:bg-[#faf8f5] transition-colors">
+          <td class="py-5 px-6 font-medium text-navy">${u.name}</td>
+          <td class="py-5 px-6 text-secondary">${u.email}</td>
+          <td class="py-5 px-6"><span class="text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${u.role==='admin'?'bg-gold/10 text-gold-dark':'bg-navy/5 text-navy'}">${u.role}</span></td>
+          <td class="py-5 px-6 text-xs text-secondary font-medium">${new Date(u.created_at).toLocaleDateString()}</td>
+        </tr>`).join('');
+
+      // Render Messages
+      const mlist = document.getElementById('messages-list');
+      if (data.recentMessages.length === 0) { document.getElementById('no-messages').classList.remove('hidden'); mlist.innerHTML = ''; }
+      else { 
+        document.getElementById('no-messages').classList.add('hidden');
+        mlist.innerHTML = data.recentMessages.map(m => `
+        <div class="bg-white p-6 rounded-3xl border border-[#efece7] shadow-sm relative group">
+          <button onclick="deleteMsg(${m.id})" class="absolute top-4 right-4 w-8 h-8 rounded-full flex justify-center items-center text-secondary hover:bg-red-50 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy font-headline font-bold text-sm uppercase">${m.name.charAt(0)}</div>
+            <div><h4 class="font-bold text-navy text-sm">${m.name}</h4><p class="text-[10px] text-secondary tracking-widest uppercase">${m.email}</p></div>
+          </div>
+          <div class="inline-block px-3 py-1 bg-surface-dim text-[9px] uppercase tracking-widest font-bold text-navy rounded-full mb-3">${m.subject || 'General'}</div>
+          <p class="text-sm text-on-surface-variant leading-relaxed line-clamp-3 mb-4">${m.message}</p>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-[#b5b0aa]">${new Date(m.created_at).toLocaleDateString()}</p>
+        </div>`).join(''); 
+      }
+    } catch(e) { console.error(e); }
+  }
+
+  function initCharts(pending, shipped, completed) {
+    if(revChart) revChart.destroy();
+    if(stChart) stChart.destroy();
+
+    // Line Chart (Revenue Evolution) - Mocked nice curve mimicking the image
+    const ctx1 = document.getElementById('revenueChart').getContext('2d');
+    const gradient = ctx1.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, 'rgba(26, 26, 46, 0.2)');
+    gradient.addColorStop(1, 'rgba(26, 26, 46, 0)');
+
+    revChart = new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Revenue',
+          data: [1200, 1900, 1500, 2400, 2100, 3200, 2800], // Mock curve
+          borderColor: '#1a1a2e',
+          backgroundColor: gradient,
+          borderWidth: 3,
+          tension: 0.4, // smooth curve
+          pointBackgroundColor: '#fff',
+          pointBorderColor: '#c9a96e',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } }, // hide generic legend
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#8a8580', font: {family: 'Inter', size: 10} } },
+          y: { grid: { borderDash: [4,4], color: '#f0ede8' }, ticks: { color: '#8a8580', font: {family: 'Inter', size: 10}, callback: function(val) { return '$' + val; } } }
+        }
+      }
+    });
+
+    // Doughnut Chart (Sales Status)
+    const ctx2 = document.getElementById('statusChart').getContext('2d');
+    stChart = new Chart(ctx2, {
+      type: 'doughnut',
+      data: {
+        labels: ['Pending', 'Shipped', 'Completed'],
+        datasets: [{
+          data: [pending, shipped, completed].every(v=>v===0) ? [1,1,1] : [pending, shipped, completed], // show equal if empty, else real
+          backgroundColor: ['#1a1a2e', '#c9a96e', '#2dd4bf'],
+          borderWidth: 0,
+          hoverOffset: 4,
+          cutout: '80%' // thin ring like in the image
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+
+  async function updateOrder(id, status) {
+    await fetch(`/api/admin/orders/${id}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({status}) });
+    loadDashboard();
+  }
+  async function deleteMsg(id) {
+    await fetch(`/api/admin/messages/${id}`, { method:'DELETE' });
+    loadDashboard();
+  }
+  
+  let editingProductId = null;
+  
+  async function loadProducts() {
+    try {
+      const res = await fetch('/api/admin/catalog');
+      if(!res.ok) return;
+      const products = await res.json();
+      window.allProducts = products;
+      document.getElementById('catalog-tbody').innerHTML = products.map(p => `
+        <tr class="border-b border-surface-dim hover:bg-[#faf8f5] transition-colors group">
+          <td class="py-4 px-6">
+            <div class="flex items-center gap-4">
+              <img src="${p.images[0]}" class="w-12 h-12 object-cover rounded-lg border border-[#efece7]">
+              <div><p class="font-bold text-navy line-clamp-1">${p.name}</p><p class="text-[9px] uppercase tracking-widest text-secondary mt-1">ID: ${p.id}</p></div>
+            </div>
+          </td>
+          <td class="py-5 px-6"><span class="text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-navy/5 text-navy">${p.category}</span></td>
+          <td class="py-5 px-6 font-bold text-gold-dark">$${p.price.toFixed(2)}</td>
+          <td class="py-5 px-6 text-right flex justify-end gap-1">
+             <button onclick="editProduct(${p.id})" class="p-2 rounded-full text-secondary hover:text-navy hover:bg-surface-dim transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+             <button onclick="deleteProduct(${p.id})" class="p-2 rounded-full text-secondary hover:text-red-500 hover:bg-red-50 transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+          </td>
+        </tr>
+      `).join('');
+    } catch(e) {}
+  }
+
+  function editProduct(id) {
+    const p = window.allProducts.find(x => x.id === id);
+    if(!p) return;
+    editingProductId = id;
+    document.getElementById('p-name').value = p.name;
+    document.getElementById('p-price').value = p.price;
+    document.getElementById('p-cat').value = p.category;
+    document.getElementById('p-img').value = p.images[0];
+    
+    document.querySelector('#product-modal h3').textContent = 'Update Product';
+    document.querySelector('#add-product-form button').textContent = 'Save Changes';
+    document.getElementById('product-modal').classList.remove('hidden');
+  }
+
+  async function deleteProduct(id) {
+    if(!confirm("Are you sure you want to completely delete this product from the store?")) return;
+    try {
+      const res = await fetch(`/api/admin/products/${id}`, { method: 'DELETE' });
+      if(res.ok) { alert('Product deleted!'); loadProducts(); }
+      else { alert('Failed to delete product.'); }
+    } catch(e) { alert('Error deleting product'); }
+  }
+
+  async function logout() {
+    await fetch('/api/logout', { method:'POST' });
+    localStorage.removeItem('user');
+    window.location.href = 'login.html';
+  }
+
+  function openProductModal() { 
+    editingProductId = null;
+    document.getElementById('product-modal').classList.remove('hidden');
+    document.getElementById('add-product-form').reset();
+    document.querySelector('#product-modal h3').textContent = 'Add New Product';
+    document.querySelector('#add-product-form button').textContent = 'Save Product';
+  }
+  
+  function closeProductModal() { 
+    document.getElementById('product-modal').classList.add('hidden'); 
+    document.getElementById('add-product-form').reset(); 
+  }
+
+  document.getElementById('add-product-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const ogText = btn.textContent;
+    btn.textContent = 'SAVING...';
+    try {
+      const method = editingProductId ? 'PUT' : 'POST';
+      const url = editingProductId ? `/api/admin/products/${editingProductId}` : '/api/admin/products';
+      
+      const res = await fetch(url, {
+        method: method, headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          name: document.getElementById('p-name').value,
+          price: document.getElementById('p-price').value,
+          category: document.getElementById('p-cat').value,
+          imageUrl: document.getElementById('p-img').value
+        })
+      });
+      if(res.ok) { 
+        alert(editingProductId ? 'Product Updated Successfully!' : 'Product Added Successfully!');
+        closeProductModal();
+        loadProducts(); // Soft refresh table!
+      } else {
+        const errorData = await res.json().catch(() => ({error: 'Server Error (' + res.status + ')'}));
+        alert('Failed: ' + (errorData.error || 'Unknown problem'));
+      }
+    } catch(err) { alert('Error saving product'); }
+    btn.textContent = ogText;
+  });
+
+  loadDashboard();
+  loadProducts();
+</script>
+</body>
+</html>

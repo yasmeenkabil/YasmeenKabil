@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Product Details | ATELIER NOIR</title>
+  <meta name="description" content="View product details at Atelier Noir. Premium fashion crafted with exceptional materiality.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface":"#faf8f5","surface-dim":"#f0ede8",
+            "surface-container-lowest":"#ffffff","surface-container-low":"#f5f2ed",
+            "surface-container":"#efece7","surface-container-high":"#e9e6e1",
+            "primary":"#1a1a2e","on-primary":"#c9a96e",
+            "primary-container":"#2d2d44","on-primary-container":"#ddc9a3",
+            "secondary":"#8a8580","gold":"#c9a96e","gold-light":"#ddc9a3","gold-dark":"#a68a4b",
+            "on-surface":"#1a1a2e","on-surface-variant":"#5a5652",
+            "outline":"#8a8580","outline-variant":"rgba(201,169,110,0.2)",
+            "navy":"#1a1a2e","navy-light":"#2d2d44",
+            "ivory":"#faf8f5","ivory-dim":"#f0ede8",
+          },
+          fontFamily: { "headline":["Noto Serif"],"body":["Inter"],"label":["Inter"] },
+          borderRadius: {"DEFAULT":"0px","lg":"2px","xl":"4px","full":"9999px"},
+          boxShadow: { "soft":"0 4px 30px rgba(26,26,46,0.06)","medium":"0 8px 40px rgba(26,26,46,0.1)","gold":"0 4px 20px rgba(201,169,110,0.15)" },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface font-body">
+
+<!-- TopNavBar -->
+<nav class="glass-nav fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-5">
+  <div class="flex items-center gap-6 md:gap-12">
+    <button id="mobile-menu-btn" class="md:hidden text-navy"><span class="material-symbols-outlined">menu</span></button>
+    <a href="index.html" class="text-xl md:text-2xl font-bold tracking-[0.25em] text-navy font-headline uppercase">ATELIER</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a class="nav-link active text-navy font-label text-xs uppercase tracking-widest font-semibold" href="shop.html">Shop</a>
+      <a class="nav-link text-secondary hover:text-gold transition-colors font-label text-xs uppercase tracking-widest" href="index.html">New Arrivals</a>
+      <a class="nav-link text-secondary hover:text-gold transition-colors font-label text-xs uppercase tracking-widest" href="about.html">About</a>
+    </div>
+  </div>
+  <div class="flex items-center gap-4 md:gap-6">
+    <a href="shop.html" class="text-navy hover:text-gold transition-colors"><span class="material-symbols-outlined">search</span></a>
+    <a href="login.html" class="hidden md:inline-block text-navy hover:text-gold transition-colors auth-link"><span class="material-symbols-outlined">person</span></a>
+    <a href="cart.html" class="text-navy hover:text-gold transition-colors relative">
+      <span class="material-symbols-outlined">shopping_bag</span>
+      <span class="cart-badge hidden absolute -top-1 -right-2 bg-gold text-[9px] text-white w-[18px] h-[18px] flex items-center justify-center rounded-full font-bold">0</span>
+    </a>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu-overlay">
+  <div class="flex justify-between items-center px-6 py-5 border-b" style="border-color:rgba(201,169,110,0.2);">
+    <span class="text-xl font-bold tracking-[0.25em] font-headline uppercase text-navy">ATELIER</span>
+    <button id="mobile-menu-close" class="text-navy"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="flex flex-col gap-0 px-6 py-8">
+    <a href="index.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Home</a>
+    <a href="shop.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Shop</a>
+    <a href="about.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">About Us</a>
+    <a href="contact.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Contact</a>
+    <a href="cart.html" class="text-2xl font-headline tracking-tight py-5">Cart</a>
+  </div>
+</div>
+
+<main class="pt-28 md:pt-32 pb-24">
+  <div id="product-detail" class="max-w-[1800px] mx-auto px-6 md:px-12"></div>
+
+  <!-- Complete the Look -->
+  <section class="mt-32 md:mt-48 px-6 md:px-12 max-w-[1800px] mx-auto">
+    <div class="section-divider mb-12"></div>
+    <div class="flex justify-between items-end mb-12">
+      <div>
+        <p class="font-label text-[10px] tracking-[0.4em] uppercase text-gold mb-2">YOU MAY ALSO LIKE</p>
+        <h2 class="font-headline text-3xl md:text-4xl tracking-tighter text-navy">Complete the Look</h2>
+      </div>
+      <a class="text-xs uppercase tracking-widest font-bold text-gold-dark hover:text-navy transition-colors gold-underline pb-1" href="shop.html">Shop Collections</a>
+    </div>
+    <div id="related-products" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8"></div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="premium-footer">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-6 md:px-12 py-16 md:py-24 max-w-screen-2xl mx-auto">
+    <div class="space-y-8">
+      <span class="text-lg font-bold tracking-[0.25em] text-gold uppercase">ATELIER</span>
+      <p class="text-[#8a8580] text-xs leading-relaxed uppercase tracking-tighter">
+        Defining the modern wardrobe through precision, materiality, and the absence of noise.
+      </p>
+    </div>
+    <div class="space-y-6">
+      <h4 class="footer-title text-[10px] font-bold uppercase tracking-[0.2em]">Client Service</h4>
+      <ul class="space-y-4">
+        <li><a class="text-[10px] uppercase tracking-widest" href="contact.html">Help</a></li>
+        <li><a class="text-[10px] uppercase tracking-widest" href="#">Shipping</a></li>
+        <li><a class="text-[10px] uppercase tracking-widest" href="#">Returns</a></li>
+      </ul>
+    </div>
+    <div class="space-y-6">
+      <h4 class="footer-title text-[10px] font-bold uppercase tracking-[0.2em]">Contact Us</h4>
+      <ul class="space-y-4">
+        <li><a class="text-[10px] uppercase tracking-widest" href="tel:01020621146">01020621146</a></li>
+        <li><a class="text-[10px] uppercase tracking-widest" href="mailto:yasmeenkabil31@gmail.com">yasmeenkabil31@gmail.com</a></li>
+      </ul>
+    </div>
+    <div class="space-y-6">
+      <h4 class="footer-title text-[10px] font-bold uppercase tracking-[0.2em]">Newsletter</h4>
+      <div class="flex border-b border-gold/30 pb-2">
+        <input class="bg-transparent border-none p-0 text-[10px] w-full focus:ring-0 placeholder:text-[#8a8580] text-white" placeholder="ENTER YOUR EMAIL" type="email"/>
+        <button class="material-symbols-outlined text-gold">arrow_forward</button>
+      </div>
+    </div>
+  </div>
+  <div class="px-6 md:px-12 py-8 border-t border-white/10 text-center">
+    <p class="text-[#5a5652] text-[10px] tracking-[0.1rem]">© 2024 ATELIER DIGITAL. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  let selectedSize = null;
+  let currentProduct = null;
+
+  function getProductId() {
+    return parseInt(new URLSearchParams(window.location.search).get('id')) || 1;
+  }
+
+  function renderProductDetail() {
+    const id = getProductId();
+    currentProduct = PRODUCTS.find(p => p.id === id);
+    if (!currentProduct) { document.getElementById('product-detail').innerHTML = '<p class="text-center py-24 text-secondary">Product not found</p>'; return; }
+    document.title = `${currentProduct.name} | ATELIER NOIR`;
+
+    const sizesHTML = currentProduct.sizes.map(s => `
+      <button class="size-btn py-3 md:py-4 text-sm font-medium" data-size="${s}" onclick="selectSize('${s}', this)">${s}</button>
+    `).join('');
+
+    document.getElementById('product-detail').innerHTML = `
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-20 items-start">
+        <div class="space-y-4">
+          <div class="w-full h-[65vh] md:h-[85vh] bg-ivory-dim overflow-hidden shadow-soft rounded-2xl">
+            <img class="w-full h-full object-cover object-center" alt="${currentProduct.name}" src="${currentProduct.images[0]}"/>
+          </div>
+          ${currentProduct.images.length > 1 ? `<div class="grid grid-cols-2 gap-4">${currentProduct.images.slice(1).map(img => `<div class="h-[30vh] md:h-[40vh] bg-ivory-dim overflow-hidden shadow-soft rounded-xl"><img class="w-full h-full object-cover" alt="${currentProduct.name} detail" src="${img}"/></div>`).join('')}</div>` : ''}
+        </div>
+        <div class="lg:sticky lg:top-32 space-y-8 md:space-y-10 xl:pl-8">
+          <nav class="flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-secondary">
+            <a class="hover:text-gold transition-colors" href="index.html">Home</a>
+            <span class="text-gold opacity-50">/</span>
+            <a class="hover:text-gold transition-colors" href="shop.html">Shop</a>
+            <span class="text-gold opacity-50">/</span>
+            <span class="text-gold-dark font-bold">${currentProduct.category}</span>
+          </nav>
+          <header class="space-y-4">
+            ${currentProduct.badge ? `<span class="badge-gold inline-block mb-2">${currentProduct.badge}</span>` : ''}
+            <h1 class="font-headline text-3xl md:text-5xl font-normal leading-[1.1] tracking-tighter text-navy">${currentProduct.name}</h1>
+            <p class="text-xl md:text-2xl font-light text-gold-dark">${formatPrice(currentProduct.price)}</p>
+          </header>
+          <div class="space-y-6">
+            <p class="text-sm leading-relaxed text-on-surface-variant max-w-md">${currentProduct.description}</p>
+            <div class="space-y-4">
+              <div class="flex justify-between items-end">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-navy">Select Size</span>
+                <span class="text-[10px] uppercase tracking-widest text-gold-dark cursor-pointer hover:underline">Size Guide</span>
+              </div>
+              <div class="grid grid-cols-4 gap-2">${sizesHTML}</div>
+              <p id="size-error" class="text-xs text-red-500 hidden">Please select a size</p>
+            </div>
+            <div class="space-y-3 pt-4">
+              <button id="add-to-cart-btn" onclick="addToCart()" class="btn-primary w-full py-4 md:py-5 px-8 text-xs uppercase tracking-[0.3em] font-bold active:scale-[0.98]">Add to Cart</button>
+              <button onclick="addToWishlist()" class="btn-secondary w-full py-4 md:py-5 px-8 text-xs uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-lg">favorite</span> Add to Wishlist
+              </button>
+            </div>
+          </div>
+          <div class="space-y-0" style="border-top: 1px solid rgba(201,169,110,0.2);">
+            <details class="group" style="border-bottom: 1px solid rgba(201,169,110,0.15);">
+              <summary class="flex justify-between items-center py-5 cursor-pointer list-none">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-navy">Fabric & Care</span>
+                <span class="material-symbols-outlined text-gold transition-transform group-open:rotate-180">expand_more</span>
+              </summary>
+              <div class="pb-6 text-xs leading-relaxed text-secondary space-y-2">
+                <p>${currentProduct.fabric}</p><p>${currentProduct.care}</p>
+              </div>
+            </details>
+            <details class="group" style="border-bottom: 1px solid rgba(201,169,110,0.15);">
+              <summary class="flex justify-between items-center py-5 cursor-pointer list-none">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-navy">Shipping & Returns</span>
+                <span class="material-symbols-outlined text-gold transition-transform group-open:rotate-180">expand_more</span>
+              </summary>
+              <div class="pb-6 text-xs leading-relaxed text-secondary">
+                <p>Complimentary express shipping on all orders over $500. Returns accepted within 14 days of delivery.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>`;
+    renderRelated(currentProduct);
+  }
+
+  function selectSize(size, btn) {
+    selectedSize = size;
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('bg-primary', 'text-on-primary', 'border-primary'));
+    btn.classList.add('bg-primary', 'text-on-primary', 'border-primary');
+    document.getElementById('size-error').classList.add('hidden');
+  }
+
+  function addToCart() {
+    if (!selectedSize) { document.getElementById('size-error').classList.remove('hidden'); return; }
+    Cart.addItem(currentProduct.id, selectedSize, 1);
+  }
+
+  function addToWishlist() { Cart.showNotification('Added to wishlist'); }
+
+  function renderRelated(product) {
+    const related = PRODUCTS.filter(p => p.id !== product.id).slice(0, 4);
+    document.getElementById('related-products').innerHTML = related.map(p => `
+      <a href="product.html?id=${p.id}" class="product-card group cursor-pointer block">
+        <div class="aspect-[3/4] bg-ivory-dim mb-4 md:mb-6 overflow-hidden shadow-soft">
+          <img class="w-full h-full object-cover transition-transform duration-700" alt="${p.name}" src="${p.images[0]}"/>
+        </div>
+        <h3 class="text-xs uppercase tracking-widest font-bold mb-1 text-navy">${p.name}</h3>
+        <p class="text-xs text-gold-dark">${formatPrice(p.price)}</p>
+      </a>
+    `).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', renderProductDetail);
+</script>
+</body>
+</html>

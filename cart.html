@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Your Shopping Bag | ATELIER NOIR</title>
+  <meta name="description" content="Review your curated selection at Atelier Noir.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface":"#faf8f5","surface-dim":"#f0ede8",
+            "surface-container-lowest":"#ffffff","surface-container-low":"#f5f2ed",
+            "surface-container":"#efece7","surface-container-high":"#e9e6e1",
+            "primary":"#1a1a2e","on-primary":"#c9a96e",
+            "secondary":"#8a8580","gold":"#c9a96e","gold-light":"#ddc9a3","gold-dark":"#a68a4b",
+            "on-surface":"#1a1a2e","on-surface-variant":"#5a5652",
+            "outline":"#8a8580","outline-variant":"rgba(201,169,110,0.2)",
+            "navy":"#1a1a2e","navy-light":"#2d2d44",
+            "ivory":"#faf8f5","ivory-dim":"#f0ede8",
+          },
+          fontFamily: { "headline":["Noto Serif"],"body":["Inter"],"label":["Inter"] },
+          borderRadius: {"DEFAULT":"0px","lg":"2px","xl":"4px","full":"9999px"},
+          boxShadow: { "soft":"0 4px 30px rgba(26,26,46,0.06)","medium":"0 8px 40px rgba(26,26,46,0.1)","gold":"0 4px 20px rgba(201,169,110,0.15)" },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="text-on-surface bg-surface font-body">
+
+<!-- TopNavBar -->
+<nav class="glass-nav fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-5">
+  <div class="flex gap-6 md:gap-8 items-center">
+    <button id="mobile-menu-btn" class="md:hidden text-navy"><span class="material-symbols-outlined">menu</span></button>
+    <a class="nav-link text-secondary hover:text-gold uppercase tracking-[0.1em] text-xs font-medium" href="shop.html">Shop</a>
+    <a class="nav-link text-secondary hover:text-gold uppercase tracking-[0.1em] text-xs font-medium hidden md:inline" href="index.html">New Arrivals</a>
+    <a class="nav-link text-secondary hover:text-gold uppercase tracking-[0.1em] text-xs font-medium hidden md:inline" href="about.html">About</a>
+  </div>
+  <div class="absolute left-1/2 -translate-x-1/2">
+    <a href="index.html" class="text-xl md:text-2xl font-bold tracking-[0.25em] text-navy uppercase font-headline">ATELIER</a>
+  </div>
+  <div class="flex items-center gap-4 md:gap-6">
+    <a href="shop.html" class="hidden md:inline-block text-navy hover:text-gold transition-colors"><span class="material-symbols-outlined">search</span></a>
+    <a href="cart.html" class="text-navy hover:text-gold transition-colors relative">
+      <span class="material-symbols-outlined">shopping_bag</span>
+      <span class="cart-badge hidden absolute -top-1 -right-2 bg-gold text-[9px] text-white w-[18px] h-[18px] flex items-center justify-center rounded-full font-bold">0</span>
+    </a>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu-overlay">
+  <div class="flex justify-between items-center px-6 py-5 border-b" style="border-color:rgba(201,169,110,0.2);">
+    <span class="text-xl font-bold tracking-[0.25em] font-headline uppercase text-navy">ATELIER</span>
+    <button id="mobile-menu-close" class="text-navy"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="flex flex-col gap-0 px-6 py-8">
+    <a href="index.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Home</a>
+    <a href="shop.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Shop</a>
+    <a href="about.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">About Us</a>
+    <a href="contact.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Contact</a>
+    <a href="cart.html" class="text-2xl font-headline tracking-tight py-5">Cart</a>
+  </div>
+</div>
+
+<main class="pt-28 md:pt-32 pb-24 px-6 md:px-12 max-w-screen-2xl mx-auto">
+  <header class="text-center mb-12 md:mb-16">
+    <div class="gold-line mx-auto mb-6"></div>
+    <h1 class="font-headline text-4xl md:text-5xl lg:text-6xl tracking-tighter text-navy mb-4">Your Shopping Bag</h1>
+    <p class="text-secondary font-body uppercase tracking-[0.2em] text-xs">Curated Selection • Atelier Noir Edition</p>
+  </header>
+
+  <div id="cart-content"></div>
+
+  <section class="mt-24 md:mt-32 py-16 md:py-24 px-6 md:px-12 text-center" style="background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);">
+    <h3 class="font-headline text-3xl md:text-4xl lg:text-5xl leading-tight max-w-3xl mx-auto italic text-white">
+      "Fashion is the armor to survive the reality of everyday life."
+    </h3>
+    <p class="mt-8 text-gold text-xs uppercase tracking-[0.3em]">— Atelier Noir Philosophy</p>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="premium-footer">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-6 md:px-12 py-16 md:py-24 max-w-screen-2xl mx-auto">
+    <div>
+      <h5 class="text-lg font-bold tracking-[0.25em] mb-6 uppercase text-gold">ATELIER</h5>
+      <p class="text-[#8a8580] text-xs leading-relaxed uppercase tracking-widest">Curating the finest pieces for the modern visionary.</p>
+    </div>
+    <div class="flex flex-col gap-4">
+      <span class="footer-title font-bold text-xs uppercase tracking-widest mb-2">Customer Care</span>
+      <a class="uppercase text-[10px] tracking-widest" href="contact.html">Help Center</a>
+      <a class="uppercase text-[10px] tracking-widest" href="#">Shipping & Delivery</a>
+      <a class="uppercase text-[10px] tracking-widest" href="#">Returns & Exchanges</a>
+    </div>
+    <div class="flex flex-col gap-4">
+      <span class="footer-title font-bold text-xs uppercase tracking-widest mb-2">Contact Us</span>
+      <a class="uppercase text-[10px] tracking-widest" href="tel:01020621146">01020621146</a>
+      <a class="uppercase text-[10px] tracking-widest" href="mailto:yasmeenkabil31@gmail.com">yasmeenkabil31@gmail.com</a>
+      <a class="uppercase text-[10px] tracking-widest" href="contact.html">Contact Form</a>
+    </div>
+    <div class="flex flex-col gap-4">
+      <span class="footer-title font-bold text-xs uppercase tracking-widest mb-2">Newsletter</span>
+      <p class="text-[#8a8580] text-[10px] uppercase tracking-widest mb-2">Join the inner circle.</p>
+      <div class="border-b border-gold/30 py-2 flex justify-between">
+        <input class="bg-transparent border-none text-[10px] p-0 focus:ring-0 w-full text-white placeholder:text-[#8a8580]" placeholder="YOUR EMAIL" type="email"/>
+        <button class="material-symbols-outlined text-lg text-gold">east</button>
+      </div>
+    </div>
+  </div>
+  <div class="px-6 md:px-12 py-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+    <p class="text-[#5a5652] text-[10px] tracking-[0.1rem] uppercase">© 2024 ATELIER DIGITAL. ALL RIGHTS RESERVED.</p>
+    <div class="flex gap-8">
+      <a class="text-[10px] tracking-widest uppercase" href="#">Privacy</a>
+      <a class="text-[10px] tracking-widest uppercase" href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  function renderCart() {
+    const items = Cart.getItems();
+    const container = document.getElementById('cart-content');
+    if (items.length === 0) {
+      container.innerHTML = `
+        <div class="text-center py-24">
+          <span class="material-symbols-outlined text-6xl text-gold/40 mb-6">shopping_bag</span>
+          <h3 class="font-headline text-2xl tracking-tighter mb-4 text-navy">Your bag is empty</h3>
+          <p class="text-secondary text-sm mb-8">Discover our curated collection and find your next statement piece.</p>
+          <a href="shop.html" class="btn-primary inline-block px-12 py-5 text-xs uppercase tracking-widest font-bold">Shop Now</a>
+        </div>`;
+      return;
+    }
+    const subtotal = Cart.getSubtotal();
+    const itemsHTML = items.map(item => {
+      const product = PRODUCTS.find(p => p.id === item.productId);
+      if (!product) return '';
+      return `
+        <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-start pb-8 md:pb-12" style="border-bottom: 1px solid rgba(201,169,110,0.15);">
+          <a href="product.html?id=${product.id}" class="w-full md:w-48 aspect-[3/4] bg-ivory-dim overflow-hidden group block shadow-soft">
+            <img alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="${product.images[0]}"/>
+          </a>
+          <div class="flex-1 flex flex-col justify-between h-full py-2 w-full">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-headline text-xl md:text-2xl mb-1 text-navy">${product.name}</h3>
+                <p class="text-secondary text-sm uppercase tracking-widest">${product.fabric.split('.')[0]} / Size ${item.size}</p>
+              </div>
+              <p class="font-headline text-lg md:text-xl text-gold-dark">${formatPrice(product.price * item.quantity)}</p>
+            </div>
+            <div class="mt-6 md:mt-8 flex items-center justify-between">
+              <div class="qty-stepper">
+                <button onclick="updateQty(${product.id}, '${item.size}', ${item.quantity - 1})"><span class="material-symbols-outlined text-sm">remove</span></button>
+                <span class="font-medium text-sm w-4 text-center">${String(item.quantity).padStart(2, '0')}</span>
+                <button onclick="updateQty(${product.id}, '${item.size}', ${item.quantity + 1})"><span class="material-symbols-outlined text-sm">add</span></button>
+              </div>
+              <button onclick="removeItem(${product.id}, '${item.size}')" class="flex items-center gap-2 text-secondary hover:text-gold transition-colors text-xs uppercase tracking-widest group">
+                <span class="material-symbols-outlined text-lg">close</span>
+                <span class="group-hover:underline">Remove</span>
+              </button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20">
+        <div class="lg:col-span-8"><div class="flex flex-col gap-8 md:gap-12">${itemsHTML}</div></div>
+        <div class="lg:col-span-4">
+          <div class="summary-card p-8 md:p-10 flex flex-col gap-8 md:gap-10 lg:sticky lg:top-32">
+            <h4 class="font-headline text-2xl text-navy">Order Summary</h4>
+            <div class="flex flex-col gap-6">
+              <div class="flex justify-between items-center"><span class="text-secondary text-xs uppercase tracking-widest">Subtotal</span><span class="font-medium">${formatPrice(subtotal)}</span></div>
+              <div class="flex justify-between items-center"><span class="text-secondary text-xs uppercase tracking-widest">Shipping</span><span class="font-medium uppercase text-[10px] tracking-tighter text-gold-dark">Calculated at next step</span></div>
+              <div class="flex justify-between items-center"><span class="text-secondary text-xs uppercase tracking-widest">Tax</span><span class="font-medium">${formatPrice(0)}</span></div>
+              <div class="pt-6 flex justify-between items-center" style="border-top: 1px solid rgba(201,169,110,0.3);">
+                <span class="font-headline text-xl text-navy">Total</span><span class="font-headline text-2xl text-gold-dark">${formatPrice(subtotal)}</span>
+              </div>
+            </div>
+            <div class="flex flex-col gap-4">
+              <a href="checkout.html" class="btn-primary w-full py-4 md:py-5 text-sm uppercase tracking-[0.2em] font-bold text-center block">Proceed to Checkout</a>
+              <a class="text-center text-xs uppercase tracking-[0.15em] text-gold-dark hover:text-navy transition-colors py-2 w-fit mx-auto gold-underline" href="shop.html">Continue Shopping</a>
+            </div>
+            <div class="flex items-center gap-4 pt-4">
+              <span class="material-symbols-outlined text-gold">shield</span>
+              <p class="text-[10px] text-secondary uppercase tracking-widest leading-relaxed">Secure transaction with encrypted checkout.</p>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+  function updateQty(productId, size, newQty) { if (newQty < 1) { removeItem(productId, size); return; } Cart.updateQuantity(productId, size, newQty); renderCart(); }
+  function removeItem(productId, size) { Cart.removeItem(productId, size); Cart.showNotification('Item removed'); renderCart(); }
+  document.addEventListener('DOMContentLoaded', renderCart);
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "email": "admin@atelier.com",
+      "password": "$2a$10$U3FrUlmci/BYFgKuJQTjxOC6q8uoicR17gL2Lmj.2RItKgDlksSH2",
+      "role": "admin",
+      "created_at": "2026-03-28T16:21:23.809Z"
+    },
+    {
+      "id": 2,
+      "name": "yasmeen",
+      "email": "yasmeenkabil4@gmail.com",
+      "password": "$2a$10$UTnUuSDOexMwYhpiwPOl2OwvkEK5NLePeZIpAu5aIBiBc4pinaI0y",
+      "role": "customer",
+      "created_at": "2026-03-28T16:22:02.754Z"
+    },
+    {
+      "id": 3,
+      "name": "yasmeen",
+      "email": "yasmeenkabil9@gmail.com",
+      "password": "$2a$10$BIOTCHkS128zCkbyKq308eWXlhWgKvchvGFNHyvMnUtfBIw262Qba",
+      "role": "customer",
+      "created_at": "2026-03-28T19:31:44.311Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "items": [
+        {
+          "productId": 2,
+          "size": "M",
+          "quantity": 1
+        }
+      ],
+      "total": 1525,
+      "status": "pending",
+      "shipping_name": "yasmeen kabil",
+      "shipping_address": "WEEEEEEEEEEEEE",
+      "shipping_city": "MANSOURA",
+      "shipping_country": "EGYPT",
+      "created_at": "2026-03-28T16:26:36.392Z"
+    },
+    {
+      "id": 2,
+      "user_id": 3,
+      "items": [
+        {
+          "productId": 5,
+          "size": "M",
+          "quantity": 2
+        }
+      ],
+      "total": 4320,
+      "status": "pending",
+      "shipping_name": "yasmeen kabil",
+      "shipping_address": "WEEEEEEEEEEEEE",
+      "shipping_city": "MANSOURA",
+      "shipping_country": "EGYPT",
+      "created_at": "2026-03-28T20:29:56.229Z"
+    }
+  ],
+  "messages": [],
+  "nextId": {
+    "user": 4,
+    "order": 3,
+    "message": 1
+  }
+}

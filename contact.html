@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Contact Us | ATELIER NOIR</title>
+  <meta name="description" content="Get in touch with Atelier Noir. Our client care team is here to assist you.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface":"#faf8f5","surface-dim":"#f0ede8",
+            "surface-container-lowest":"#ffffff","surface-container-low":"#f5f2ed",
+            "surface-container":"#efece7","surface-container-high":"#e9e6e1",
+            "primary":"#1a1a2e","on-primary":"#c9a96e",
+            "secondary":"#8a8580","gold":"#c9a96e","gold-light":"#ddc9a3","gold-dark":"#a68a4b",
+            "on-surface":"#1a1a2e","on-surface-variant":"#5a5652",
+            "outline":"#8a8580","outline-variant":"rgba(201,169,110,0.2)",
+            "navy":"#1a1a2e","navy-light":"#2d2d44",
+            "ivory":"#faf8f5","ivory-dim":"#f0ede8",
+          },
+          fontFamily: { "headline":["Noto Serif"],"body":["Inter"],"label":["Inter"] },
+          borderRadius: {"DEFAULT":"0px","lg":"2px","xl":"4px","full":"9999px"},
+          boxShadow: { "soft":"0 4px 30px rgba(26,26,46,0.06)","medium":"0 8px 40px rgba(26,26,46,0.1)","gold":"0 4px 20px rgba(201,169,110,0.15)" },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface font-body">
+
+<!-- TopNavBar -->
+<nav class="glass-nav fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-5">
+  <div class="flex items-center gap-6 md:gap-12">
+    <button id="mobile-menu-btn" class="md:hidden text-navy"><span class="material-symbols-outlined">menu</span></button>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="nav-link text-secondary hover:text-gold font-label text-xs uppercase tracking-widest" href="shop.html">Shop</a>
+      <a class="nav-link text-secondary hover:text-gold font-label text-xs uppercase tracking-widest" href="index.html">New Arrivals</a>
+      <a class="nav-link text-secondary hover:text-gold font-label text-xs uppercase tracking-widest" href="about.html">About</a>
+    </div>
+  </div>
+  <div class="absolute left-1/2 -translate-x-1/2">
+    <a href="index.html" class="text-xl md:text-2xl font-bold tracking-[0.25em] text-navy font-headline uppercase">ATELIER</a>
+  </div>
+  <div class="flex items-center gap-4 md:gap-6">
+    <a href="shop.html" class="text-navy hover:text-gold transition-colors"><span class="material-symbols-outlined">search</span></a>
+    <a href="cart.html" class="text-navy hover:text-gold transition-colors relative">
+      <span class="material-symbols-outlined">shopping_bag</span>
+      <span class="cart-badge hidden absolute -top-1 -right-2 bg-gold text-[9px] text-white w-[18px] h-[18px] flex items-center justify-center rounded-full font-bold">0</span>
+    </a>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu-overlay">
+  <div class="flex justify-between items-center px-6 py-5 border-b" style="border-color:rgba(201,169,110,0.2);">
+    <span class="text-xl font-bold tracking-[0.25em] font-headline uppercase text-navy">ATELIER</span>
+    <button id="mobile-menu-close" class="text-navy"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="flex flex-col gap-0 px-6 py-8">
+    <a href="index.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Home</a>
+    <a href="shop.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Shop</a>
+    <a href="about.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">About Us</a>
+    <a href="contact.html" class="text-2xl font-headline tracking-tight py-5 border-b" style="border-color:rgba(201,169,110,0.15);">Contact</a>
+    <a href="cart.html" class="text-2xl font-headline tracking-tight py-5">Cart</a>
+  </div>
+</div>
+
+<main class="pt-28 md:pt-32 pb-24">
+  <!-- Header -->
+  <section class="text-center px-6 mb-16 md:mb-24">
+    <div class="gold-line mx-auto mb-6"></div>
+    <p class="font-label text-[10px] tracking-[0.4em] uppercase text-gold mb-4">Client Care</p>
+    <h1 class="font-headline text-4xl md:text-6xl tracking-tighter mb-6 text-navy">Get in Touch</h1>
+    <p class="text-on-surface-variant max-w-xl mx-auto leading-relaxed">Our dedicated team is here to provide you with the highest level of personal assistance.</p>
+  </section>
+
+  <div class="max-w-screen-xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24">
+    <!-- Contact Form -->
+    <div>
+      <div class="flex items-center gap-4 mb-8">
+        <div class="gold-line"></div>
+        <h2 class="font-headline text-2xl tracking-tight text-navy">Send a Message</h2>
+      </div>
+      <form id="contact-form" class="space-y-8" onsubmit="return handleContactForm(event)">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">First Name</label><input class="premium-input w-full" type="text" required placeholder="Your first name"/></div>
+          <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Last Name</label><input class="premium-input w-full" type="text" required placeholder="Your last name"/></div>
+        </div>
+        <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Email Address</label><input class="premium-input w-full" type="email" required placeholder="email@example.com"/></div>
+        <div class="space-y-4">
+          <label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Subject</label>
+          <select class="premium-input w-full cursor-pointer appearance-none">
+            <option>General Inquiry</option><option>Order Support</option><option>Shipping & Returns</option><option>Product Information</option><option>Collaboration</option>
+          </select>
+        </div>
+        <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Message</label><textarea class="premium-input w-full resize-none" rows="4" required placeholder="How can we assist you?"></textarea></div>
+        <button type="submit" class="btn-primary px-12 py-5 text-xs uppercase tracking-[0.2em] font-bold active:scale-[0.98]">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="space-y-12">
+      <div>
+        <div class="flex items-center gap-4 mb-8"><div class="gold-line"></div><h2 class="font-headline text-2xl tracking-tight text-navy">Visit the Atelier</h2></div>
+        <div class="space-y-8">
+          <div class="flex gap-6">
+            <span class="material-symbols-outlined text-gold mt-1">location_on</span>
+            <div><h4 class="font-label text-xs font-bold uppercase tracking-widest mb-2 text-navy">Flagship Studio</h4><p class="text-on-surface-variant text-sm leading-relaxed">123 Gallery Way<br/>Paris, France 75001</p></div>
+          </div>
+          <div class="flex gap-6">
+            <span class="material-symbols-outlined text-gold mt-1">mail</span>
+            <div><h4 class="font-label text-xs font-bold uppercase tracking-widest mb-2 text-navy">Email</h4><p class="text-on-surface-variant text-sm">yasmeenkabil31@gmail.com</p></div>
+          </div>
+          <div class="flex gap-6">
+            <span class="material-symbols-outlined text-gold mt-1">call</span>
+            <div><h4 class="font-label text-xs font-bold uppercase tracking-widest mb-2 text-navy">Telephone</h4><p class="text-on-surface-variant text-sm">01020621146</p></div>
+          </div>
+          <div class="flex gap-6">
+            <span class="material-symbols-outlined text-gold mt-1">schedule</span>
+            <div><h4 class="font-label text-xs font-bold uppercase tracking-widest mb-2 text-navy">Operating Hours</h4><p class="text-on-surface-variant text-sm leading-relaxed">Monday – Friday: 9:00 – 18:00<br/>Saturday: 10:00 – 16:00<br/>Sunday: Closed</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h3 class="font-label text-xs font-bold uppercase tracking-widest mb-6 text-navy">Follow the Atelier</h3>
+        <div class="flex gap-6">
+          <a href="#" class="flex items-center gap-2 text-on-surface-variant hover:text-gold transition-colors text-xs uppercase tracking-widest"><span class="material-symbols-outlined">photo_camera</span> Instagram</a>
+          <a href="#" class="flex items-center gap-2 text-on-surface-variant hover:text-gold transition-colors text-xs uppercase tracking-widest"><span class="material-symbols-outlined">push_pin</span> Pinterest</a>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="premium-card p-8 md:p-10">
+        <h3 class="font-headline text-xl mb-6 text-navy">Frequently Asked</h3>
+        <div class="space-y-0">
+          <details class="group" style="border-bottom: 1px solid rgba(201,169,110,0.15);">
+            <summary class="flex justify-between items-center py-4 cursor-pointer list-none text-sm font-medium text-navy">
+              What is your return policy?
+              <span class="material-symbols-outlined text-sm text-gold transition-transform group-open:rotate-180">expand_more</span>
+            </summary>
+            <p class="pb-4 text-xs text-on-surface-variant leading-relaxed">We accept returns within 14 days of delivery. Items must be unworn with original tags.</p>
+          </details>
+          <details class="group" style="border-bottom: 1px solid rgba(201,169,110,0.15);">
+            <summary class="flex justify-between items-center py-4 cursor-pointer list-none text-sm font-medium text-navy">
+              How long does shipping take?
+              <span class="material-symbols-outlined text-sm text-gold transition-transform group-open:rotate-180">expand_more</span>
+            </summary>
+            <p class="pb-4 text-xs text-on-surface-variant leading-relaxed">Standard 3-5 business days. Express next business day. Free shipping over $500.</p>
+          </details>
+          <details class="group" style="border-bottom: 1px solid rgba(201,169,110,0.15);">
+            <summary class="flex justify-between items-center py-4 cursor-pointer list-none text-sm font-medium text-navy">
+              Do you ship internationally?
+              <span class="material-symbols-outlined text-sm text-gold transition-transform group-open:rotate-180">expand_more</span>
+            </summary>
+            <p class="pb-4 text-xs text-on-surface-variant leading-relaxed">Yes, we ship to over 40 countries worldwide. Rates calculated at checkout.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="premium-footer">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-6 md:px-12 py-16 md:py-24 max-w-screen-2xl mx-auto">
+    <div class="flex flex-col gap-6">
+      <span class="text-lg font-bold tracking-[0.25em] font-headline text-gold uppercase">ATELIER</span>
+      <p class="text-[#8a8580] text-xs leading-relaxed uppercase tracking-widest">CURATING EXCELLENCE FOR THE MODERN WARDROBE.</p>
+    </div>
+    <div class="flex flex-col gap-4"><h5 class="footer-title font-label text-xs font-bold tracking-[0.2rem] uppercase mb-4">Client Care</h5><a class="text-xs uppercase tracking-widest" href="contact.html">Help</a><a class="text-xs uppercase tracking-widest" href="#">Shipping</a><a class="text-xs uppercase tracking-widest" href="#">Returns</a></div>
+    <div class="flex flex-col gap-4"><h5 class="footer-title font-label text-xs font-bold tracking-[0.2rem] uppercase mb-4">Contact Us</h5><a class="text-xs uppercase tracking-widest" href="tel:01020621146">01020621146</a><a class="text-xs uppercase tracking-widest" href="mailto:yasmeenkabil31@gmail.com">yasmeenkabil31@gmail.com</a></div>
+    <div class="flex flex-col gap-4"><h5 class="footer-title font-label text-xs font-bold tracking-[0.2rem] uppercase mb-4">Social</h5><div class="flex gap-4"><a class="text-xs uppercase tracking-widest" href="#">Instagram</a><a class="text-xs uppercase tracking-widest" href="#">Pinterest</a></div></div>
+  </div>
+  <div class="px-6 md:px-12 py-8 border-t border-white/10 text-center">
+    <p class="text-[#5a5652] text-[10px] uppercase tracking-[0.3em]">© 2024 ATELIER DIGITAL. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  async function handleContactForm(e) { 
+    e.preventDefault(); 
+    const form = e.target;
+    // Get form inputs directly by assuming order (0=fname, 1=lname, 2=email, 3=subj, 4=msg)
+    const fname = form.elements[0].value;
+    const lname = form.elements[1].value;
+    const email = form.elements[2].value;
+    const subject = form.elements[3].value;
+    const message = form.elements[4].value;
+
+    try {
+      await fetch('/api/contact', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          name: fname + ' ' + lname,
+          email: email,
+          subject: subject,
+          message: message
+        })
+      });
+      Cart.showNotification('Message sent successfully!'); 
+      form.reset(); 
+    } catch(err) {
+      Cart.showNotification('Error sending message');
+    }
+    return false; 
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>My Account | ATELIER NOIR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { "surface":"#faf8f5","primary":"#1a1a2e","on-primary":"#c9a96e","secondary":"#8a8580","gold":"#c9a96e","gold-light":"#ddc9a3","gold-dark":"#a68a4b","on-surface":"#1a1a2e","on-surface-variant":"#5a5652","navy":"#1a1a2e","navy-light":"#2d2d44","ivory":"#faf8f5","ivory-dim":"#f0ede8" },
+      fontFamily: { "headline":["Noto Serif"],"body":["Inter"] },
+    }}}
+  </script>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col">
+
+<!-- Nav -->
+<nav class="glass-nav fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-5">
+  <div class="flex items-center gap-6">
+    <a href="index.html" class="text-xl font-bold tracking-[0.25em] text-navy font-headline">ATELIER</a>
+  </div>
+  <div class="flex items-center gap-6">
+    <a class="nav-link text-secondary hover:text-gold text-xs uppercase tracking-widest" href="shop.html">Shop</a>
+    <a href="cart.html" class="text-navy hover:text-gold relative"><span class="material-symbols-outlined">shopping_bag</span><span class="cart-badge hidden absolute -top-1 -right-2 bg-gold text-[9px] text-white w-[18px] h-[18px] flex items-center justify-center rounded-full font-bold">0</span></a>
+  </div>
+</nav>
+
+<main class="flex-1 pt-28 pb-24 px-6 md:px-12 max-w-screen-xl mx-auto w-full">
+  <div class="flex justify-between items-end mb-12">
+    <div>
+      <div class="gold-line mb-4"></div>
+      <h1 class="font-headline text-3xl md:text-4xl tracking-tighter text-navy" id="profile-name">My Account</h1>
+      <p class="text-secondary text-sm mt-2" id="profile-email">---</p>
+    </div>
+    <button onclick="logout()" class="btn-primary px-6 py-3 text-[10px] uppercase tracking-widest font-bold">Sign Out</button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    
+    <!-- Account Details -->
+    <div class="md:col-span-1">
+      <div class="premium-card p-8">
+        <h3 class="font-label text-xs uppercase tracking-widest text-navy mb-6 font-bold border-b pb-4" style="border-color:rgba(201,169,110,0.2);">Account Details</h3>
+        <ul class="space-y-4 text-sm text-on-surface-variant">
+          <li class="flex items-center gap-3"><span class="material-symbols-outlined text-gold">person</span> <span id="info-name">---</span></li>
+          <li class="flex items-center gap-3"><span class="material-symbols-outlined text-gold">mail</span> <span id="info-email">---</span></li>
+          <li class="flex items-center gap-3"><span class="material-symbols-outlined text-gold">badge</span> <span id="info-role" class="uppercase text-[10px] tracking-widest bg-navy/5 text-navy px-2 py-1 rounded-sm">---</span></li>
+        </ul>
+        <div id="admin-panel-link" class="hidden mt-8 pt-6 border-t" style="border-color:rgba(201,169,110,0.2);">
+          <a href="admin.html" class="flex justify-between items-center text-xs uppercase tracking-widest text-gold-dark hover:text-navy font-bold group">
+            Go to Admin Dashboard
+            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order History -->
+    <div class="md:col-span-2">
+      <h3 class="font-headline text-xl text-navy mb-6">Order History</h3>
+      <div id="orders-list" class="space-y-4">
+        <p class="text-secondary py-8 text-center text-sm">Loading your orders...</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="premium-footer">
+  <div class="px-6 md:px-12 py-8 text-center">
+    <p class="text-[#5a5652] text-[10px] uppercase tracking-[0.3em]">© 2024 ATELIER DIGITAL. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  let currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+  
+  // If not logged in at all, kick them to login page immediately
+  if (!currentUser) { window.location.href = 'login.html'; }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Populate details securely from local
+    document.getElementById('profile-name').textContent = `Welcome, ${currentUser.name}`;
+    document.getElementById('profile-email').textContent = currentUser.email;
+    document.getElementById('info-name').textContent = currentUser.name;
+    document.getElementById('info-email').textContent = currentUser.email;
+    document.getElementById('info-role').textContent = currentUser.role;
+
+    if(currentUser.role === 'admin') {
+      document.getElementById('admin-panel-link').classList.remove('hidden');
+    }
+
+    // 2. Fetch past orders from DB
+    try {
+      const res = await fetch('/api/orders');
+      if(res.status === 401) { logout(); return; } // Session expired backend
+
+      const orders = await res.json();
+      const list = document.getElementById('orders-list');
+      
+      if(orders.length === 0) {
+        list.innerHTML = `<div class="p-8 text-center border text-sm text-secondary" style="border-color:rgba(201,169,110,0.3);">You haven't placed any orders yet.<br><br><a href="shop.html" class="btn-primary px-6 py-2 text-[10px] mt-2 inline-block">Explore Shop</a></div>`;
+      } else {
+        list.innerHTML = orders.map(o => `
+          <div class="premium-card p-6 border-l-2" style="border-left-color:${o.status==='completed'?'#4ade80':o.status==='shipped'?'#60a5fa':'#c9a96e'}; border-top:1px solid rgba(201,169,110,0.1); border-right:1px solid rgba(201,169,110,0.1); border-bottom:1px solid rgba(201,169,110,0.1);">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <p class="text-xs uppercase tracking-widest text-gold-dark font-bold">Order #ATL-${o.id}</p>
+                <p class="text-[10px] text-secondary mt-1">${new Date(o.created_at).toLocaleDateString()}</p>
+              </div>
+              <span class="text-[10px] uppercase tracking-widest px-3 py-1 bg-surface-dim font-medium">${o.status}</span>
+            </div>
+            <div class="text-sm text-on-surface-variant pt-4 mb-4 border-t" style="border-color:rgba(201,169,110,0.2);">
+              ${o.items.map(item => `<div class="flex justify-between text-xs py-1"><span class="uppercase tracking-widest">${item.productId} (Size: ${item.size}) x${item.quantity}</span></div>`).join('')}
+            </div>
+            <div class="flex justify-between items-center pt-4 border-t" style="border-color:rgba(201,169,110,0.2);">
+              <span class="text-xs font-bold uppercase tracking-widest text-navy">Total</span>
+              <span class="text-sm font-bold text-navy">$${o.total.toFixed(2)}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+    } catch(err) {
+      document.getElementById('orders-list').innerHTML = `<p class="text-red-500 text-xs">Could not load orders. Is the server running?</p>`;
+    }
+  });
+
+  async function logout() {
+    await fetch('/api/logout', { method: 'POST' });
+    localStorage.removeItem('user');
+    window.location.href = 'index.html';
+  }
+</script>
+</body>
+</html>

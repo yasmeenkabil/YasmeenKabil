@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Checkout | ATELIER NOIR</title>
+  <meta name="description" content="Complete your order at Atelier Noir.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface":"#faf8f5","surface-dim":"#f0ede8",
+            "surface-container-lowest":"#ffffff","surface-container-low":"#f5f2ed",
+            "surface-container":"#efece7","surface-container-high":"#e9e6e1",
+            "primary":"#1a1a2e","on-primary":"#c9a96e",
+            "secondary":"#8a8580","gold":"#c9a96e","gold-light":"#ddc9a3","gold-dark":"#a68a4b",
+            "on-surface":"#1a1a2e","on-surface-variant":"#5a5652",
+            "outline":"#8a8580","outline-variant":"rgba(201,169,110,0.2)",
+            "navy":"#1a1a2e","navy-light":"#2d2d44",
+            "ivory":"#faf8f5","ivory-dim":"#f0ede8",
+          },
+          fontFamily: { "headline":["Noto Serif"],"body":["Inter"],"label":["Inter"] },
+          borderRadius: {"DEFAULT":"0px","lg":"2px","xl":"4px","full":"9999px"},
+          boxShadow: { "soft":"0 4px 30px rgba(26,26,46,0.06)","medium":"0 8px 40px rgba(26,26,46,0.1)","gold":"0 4px 20px rgba(201,169,110,0.15)" },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface font-body text-on-surface">
+
+<!-- TopNavBar -->
+<nav class="glass-nav fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-5">
+  <div class="flex items-center gap-6 md:gap-12">
+    <a class="text-xl md:text-2xl font-bold tracking-[0.25em] text-navy font-headline" href="index.html">ATELIER</a>
+    <div class="hidden md:flex gap-8">
+      <a class="nav-link text-secondary hover:text-gold font-label text-xs uppercase tracking-widest" href="shop.html">Shop</a>
+      <a class="nav-link text-secondary hover:text-gold font-label text-xs uppercase tracking-widest" href="index.html">New Arrivals</a>
+      <a class="nav-link text-secondary hover:text-gold font-label text-xs uppercase tracking-widest" href="about.html">About</a>
+    </div>
+  </div>
+  <div class="flex items-center gap-4 md:gap-6">
+    <a href="cart.html" class="text-navy hover:text-gold transition-colors relative">
+      <span class="material-symbols-outlined">shopping_bag</span>
+      <span class="cart-badge hidden absolute -top-1 -right-2 bg-gold text-[9px] text-white w-[18px] h-[18px] flex items-center justify-center rounded-full font-bold">0</span>
+    </a>
+  </div>
+</nav>
+
+<main class="pt-28 md:pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
+  <div id="checkout-content" class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24 items-start">
+    <section class="lg:col-span-7 space-y-12 md:space-y-20">
+      <!-- Contact -->
+      <div>
+        <div class="flex items-center gap-4 mb-8"><div class="gold-line"></div><h2 class="font-headline text-xl md:text-2xl tracking-tight text-navy">Contact Information</h2></div>
+        <div class="space-y-4">
+          <label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Email Address</label>
+          <input id="checkout-email" class="premium-input w-full" placeholder="email@example.com" type="email" required/>
+        </div>
+      </div>
+      <!-- Shipping -->
+      <div>
+        <div class="flex items-center gap-4 mb-8"><div class="gold-line"></div><h2 class="font-headline text-xl md:text-2xl tracking-tight text-navy">Shipping Address</h2></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
+          <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">First Name</label><input id="checkout-fname" class="premium-input w-full" placeholder="First Name" type="text" required/></div>
+          <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Last Name</label><input id="checkout-lname" class="premium-input w-full" placeholder="Last Name" type="text" required/></div>
+        </div>
+        <div class="space-y-8">
+          <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Street Address</label><input id="checkout-address" class="premium-input w-full" placeholder="123 Gallery Way" type="text" required/></div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">City</label><input id="checkout-city" class="premium-input w-full" placeholder="City" type="text" required/></div>
+            <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Postal Code</label><input id="checkout-zip" class="premium-input w-full" placeholder="12345" type="text" required/></div>
+          </div>
+          <div class="space-y-4">
+            <label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Country</label>
+            <select id="checkout-country" class="premium-input w-full cursor-pointer appearance-none">
+              <option>UNITED STATES</option><option>UNITED KINGDOM</option><option>FRANCE</option><option>GERMANY</option><option>JAPAN</option><option>EGYPT</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- Shipping Method -->
+      <div>
+        <div class="flex items-center gap-4 mb-8"><div class="gold-line"></div><h2 class="font-headline text-xl md:text-2xl tracking-tight text-navy">Shipping Method</h2></div>
+        <div class="space-y-4">
+          <label class="flex items-center justify-between p-4 md:p-6 cursor-pointer premium-card group">
+            <div class="flex items-center gap-4">
+              <input checked name="shipping" type="radio" value="standard" class="w-4 h-4 text-navy focus:ring-0"/>
+              <div><p class="font-label text-xs font-bold uppercase tracking-widest text-navy">Standard Delivery</p><p class="text-[10px] text-secondary uppercase">3-5 Business Days</p></div>
+            </div>
+            <p class="font-label text-xs uppercase tracking-widest text-gold-dark">$0.00</p>
+          </label>
+          <label class="flex items-center justify-between p-4 md:p-6 cursor-pointer premium-card group">
+            <div class="flex items-center gap-4">
+              <input name="shipping" type="radio" value="express" class="w-4 h-4 text-navy focus:ring-0"/>
+              <div><p class="font-label text-xs font-bold uppercase tracking-widest text-navy">Express Courier</p><p class="text-[10px] text-secondary uppercase">Next Business Day</p></div>
+            </div>
+            <p class="font-label text-xs uppercase tracking-widest text-gold-dark">$25.00</p>
+          </label>
+        </div>
+      </div>
+      <!-- Payment -->
+      <div>
+        <div class="flex items-center gap-4 mb-8"><div class="gold-line"></div><h2 class="font-headline text-xl md:text-2xl tracking-tight text-navy">Payment Method</h2></div>
+        <div class="p-6 md:p-8 bg-surface-dim shadow-soft space-y-8 rounded-2xl" style="border: 1px solid rgba(201,169,110,0.2);">
+          <div class="flex items-center gap-4 pb-4 mb-8" style="border-bottom: 1px solid rgba(201,169,110,0.15);">
+            <span class="material-symbols-outlined text-gold">lock</span>
+            <p class="font-label text-[10px] uppercase tracking-widest text-navy">Secure Encrypted Transaction</p>
+          </div>
+          <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Card Number</label><input id="checkout-card" class="premium-input w-full" placeholder="XXXX XXXX XXXX XXXX" type="text"/></div>
+          <div class="grid grid-cols-2 gap-6 md:gap-8">
+            <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Expiry Date</label><input id="checkout-expiry" class="premium-input w-full" placeholder="MM / YY" type="text"/></div>
+            <div class="space-y-4"><label class="block font-label text-[10px] uppercase tracking-widest text-secondary">CVV</label><input id="checkout-cvv" class="premium-input w-full" placeholder="XXX" type="text"/></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Order Summary -->
+    <aside class="lg:col-span-5 lg:sticky lg:top-32">
+      <div id="order-summary" class="summary-card p-8 md:p-10 space-y-8 md:space-y-10"></div>
+    </aside>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div id="order-confirmation" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-navy/60 backdrop-blur-sm"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-6">
+      <div class="bg-surface max-w-lg w-full p-12 text-center relative shadow-medium" style="border: 1px solid rgba(201,169,110,0.3);">
+        <div class="gold-line mx-auto mb-6"></div>
+        <span class="material-symbols-outlined text-5xl mb-6 text-gold">check_circle</span>
+        <h2 class="font-headline text-3xl tracking-tighter mb-4 text-navy">Order Confirmed</h2>
+        <p class="text-secondary text-sm mb-2">Thank you for your purchase.</p>
+        <p class="text-gold-dark text-xs uppercase tracking-widest mb-8">Order #ATL-<span id="order-number"></span></p>
+        <p class="text-on-surface-variant text-sm leading-relaxed mb-10">Your curated pieces are being prepared with the utmost care. You will receive a confirmation email shortly.</p>
+        <a href="index.html" class="btn-primary inline-block px-12 py-5 text-xs uppercase tracking-widest font-bold">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="premium-footer">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-6 md:px-12 py-16 md:py-24 max-w-screen-2xl mx-auto">
+    <div class="space-y-6"><p class="text-lg font-bold tracking-[0.25em] text-gold">ATELIER</p><p class="text-[#8a8580] font-label text-[10px] uppercase leading-relaxed tracking-widest">Curating high-end experiences for the modern minimalist.</p></div>
+    <div class="space-y-6"><p class="footer-title font-label text-[10px] font-bold uppercase tracking-widest">Assistance</p><ul class="space-y-4"><li><a class="text-[10px] uppercase tracking-widest" href="contact.html">Help</a></li><li><a class="text-[10px] uppercase tracking-widest" href="#">Shipping</a></li><li><a class="text-[10px] uppercase tracking-widest" href="#">Returns</a></li></ul></div>
+    <div class="space-y-6"><p class="footer-title font-label text-[10px] font-bold uppercase tracking-widest">Contact Us</p><ul class="space-y-4"><li><a class="text-[10px] uppercase tracking-widest" href="tel:01020621146">01020621146</a></li><li><a class="text-[10px] uppercase tracking-widest" href="mailto:yasmeenkabil31@gmail.com">yasmeenkabil31@gmail.com</a></li></ul></div>
+    <div class="space-y-6"><p class="footer-title font-label text-[10px] font-bold uppercase tracking-widest">Join The Atelier</p><div class="relative"><input class="bg-transparent w-full py-3 px-0 focus:ring-0 text-[10px] tracking-widest border-0 border-b border-gold/30 text-white placeholder:text-[#8a8580]" placeholder="EMAIL ADDRESS" type="email"/><button class="absolute right-0 bottom-3 text-gold font-bold text-[10px] tracking-widest">SUBMIT</button></div></div>
+  </div>
+  <div class="px-6 md:px-12 pb-12 text-center"><p class="text-[#5a5652] font-label text-[9px] uppercase tracking-[0.2rem]">© 2024 ATELIER DIGITAL. ALL RIGHTS RESERVED.</p></div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  function renderOrderSummary() {
+    const items = Cart.getItems();
+    const container = document.getElementById('order-summary');
+    if (items.length === 0) { container.innerHTML = '<p class="text-center text-secondary py-8">Your cart is empty. <a href="shop.html" class="text-gold-dark gold-underline">Shop now</a></p>'; return; }
+    const subtotal = Cart.getSubtotal();
+    const shipping = document.querySelector('input[name="shipping"]:checked')?.value === 'express' ? 25 : 0;
+    const tax = Math.round(subtotal * 0.2 * 100) / 100;
+    const total = subtotal + shipping + tax;
+
+    const itemsHTML = items.map(item => {
+      const p = PRODUCTS.find(pr => pr.id === item.productId); if (!p) return '';
+      return `<div class="flex gap-4 md:gap-6"><div class="w-20 md:w-24 h-28 md:h-32 bg-ivory-dim flex-shrink-0 shadow-soft"><img class="w-full h-full object-cover" alt="${p.name}" src="${p.images[0]}"/></div><div class="flex-grow flex flex-col justify-between py-1"><div><h3 class="font-label text-xs font-bold uppercase tracking-widest text-navy">${p.name}</h3><p class="text-[10px] text-secondary uppercase tracking-tighter mt-1">Size ${item.size}</p></div><div class="flex justify-between items-end"><p class="text-[10px] text-secondary uppercase">Qty: ${item.quantity}</p><p class="font-label text-xs font-medium uppercase tracking-widest text-gold-dark">${formatPrice(p.price * item.quantity)}</p></div></div></div>`;
+    }).join('');
+
+    container.innerHTML = `
+      <h2 class="font-headline text-xl md:text-2xl tracking-tight text-navy">Order Summary</h2>
+      <div class="space-y-6 md:space-y-8">${itemsHTML}</div>
+      <div class="flex gap-4"><input id="discount-code" class="premium-input flex-grow text-[10px] uppercase tracking-widest" placeholder="DISCOUNT CODE" type="text"/><button onclick="applyDiscount()" class="font-label text-[10px] font-bold uppercase tracking-widest btn-secondary px-6 py-2">Apply</button></div>
+      <div class="space-y-4 pt-4" style="border-top: 1px solid rgba(201,169,110,0.2);">
+        <div class="flex justify-between items-center text-[10px] uppercase tracking-widest text-secondary"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
+        <div class="flex justify-between items-center text-[10px] uppercase tracking-widest text-secondary"><span>Shipping</span><span>${shipping === 0 ? 'Free' : formatPrice(shipping)}</span></div>
+        <div class="flex justify-between items-center text-[10px] uppercase tracking-widest text-secondary"><span>Taxes (Included)</span><span>${formatPrice(tax)}</span></div>
+        <div class="flex justify-between items-center pt-6 text-sm font-bold uppercase tracking-[0.2em] text-navy" style="border-top: 1px solid rgba(201,169,110,0.3);"><span>Total</span><span class="text-lg text-gold-dark">${formatPrice(total)}</span></div>
+      </div>
+      <button onclick="completeOrder()" class="btn-primary w-full py-5 md:py-6 font-label text-xs font-bold uppercase tracking-[0.3em] active:scale-[0.98]">Complete Order</button>`;
+  }
+  function applyDiscount() { if (document.getElementById('discount-code').value.trim()) Cart.showNotification('Discount code applied!'); }
+  async function completeOrder() {
+    const e = document.getElementById('checkout-email').value, f = document.getElementById('checkout-fname').value, l = document.getElementById('checkout-lname').value, a = document.getElementById('checkout-address').value, c = document.getElementById('checkout-city').value;
+    if (!e || !f || !l || !a || !c) { Cart.showNotification('Please fill in all required fields'); return; }
+    
+    const items = Cart.getItems();
+    const shipping = document.querySelector('input[name="shipping"]:checked')?.value === 'express' ? 25 : 0;
+    const subtotal = Cart.getSubtotal();
+    const tax = Math.round(subtotal * 0.2 * 100) / 100;
+    const totalAmount = subtotal + shipping + tax;
+
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+          items, total: totalAmount, 
+          shipping_name: f + ' ' + l, shipping_address: a, 
+          shipping_city: c, shipping_country: document.getElementById('checkout-country').value 
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) { 
+        if(res.status === 401) { Cart.showNotification('Please login to place an order'); window.location.href='login.html'; }
+        else { Cart.showNotification('Error: ' + data.error); }
+        return; 
+      }
+      
+      document.getElementById('order-number').textContent = data.orderId || Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('order-confirmation').classList.remove('hidden'); document.body.style.overflow = 'hidden'; Cart.clear();
+    } catch(err) {
+      Cart.showNotification('Connection error');
+    }
+  }
+  document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener('change', renderOrderSummary));
+  document.addEventListener('DOMContentLoaded', renderOrderSummary);
+</script>
+</body>
+</html>

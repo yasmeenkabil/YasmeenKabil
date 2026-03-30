@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Login | ATELIER NOIR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { "surface":"#faf8f5","primary":"#1a1a2e","on-primary":"#c9a96e","secondary":"#8a8580","gold":"#c9a96e","gold-light":"#ddc9a3","gold-dark":"#a68a4b","on-surface":"#1a1a2e","on-surface-variant":"#5a5652","navy":"#1a1a2e","navy-light":"#2d2d44","ivory":"#faf8f5","ivory-dim":"#f0ede8" },
+      fontFamily: { "headline":["Noto Serif"],"body":["Inter"] },
+    }}}
+  </script>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col">
+
+<!-- Nav -->
+<nav class="glass-nav fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-5">
+  <a href="index.html" class="text-xl font-bold tracking-[0.25em] text-navy font-headline">ATELIER</a>
+  <div class="flex items-center gap-6">
+    <a class="nav-link text-secondary hover:text-gold text-xs uppercase tracking-widest" href="shop.html">Shop</a>
+    <a href="cart.html" class="text-navy hover:text-gold relative"><span class="material-symbols-outlined">shopping_bag</span><span class="cart-badge hidden absolute -top-1 -right-2 bg-gold text-[9px] text-white w-[18px] h-[18px] flex items-center justify-center rounded-full font-bold">0</span></a>
+  </div>
+</nav>
+
+<main class="flex-1 flex items-center justify-center pt-24 pb-16 px-6">
+  <div class="w-full max-w-md">
+    <div class="text-center mb-10">
+      <div class="gold-line mx-auto mb-6"></div>
+      <h1 class="font-headline text-3xl md:text-4xl tracking-tighter text-navy mb-2">Welcome Back</h1>
+      <p class="text-secondary text-sm">Sign in to your Atelier account</p>
+    </div>
+
+    <form id="login-form" class="space-y-6">
+      <div id="login-error" class="hidden bg-red-50 text-red-600 text-xs p-4 uppercase tracking-widest"></div>
+
+      <div class="space-y-3">
+        <label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Email Address</label>
+        <input id="login-email" class="premium-input w-full" type="email" placeholder="email@example.com" required/>
+      </div>
+      <div class="space-y-3">
+        <label class="block font-label text-[10px] uppercase tracking-widest text-secondary">Password</label>
+        <input id="login-password" class="premium-input w-full" type="password" placeholder="••••••••" required/>
+      </div>
+
+      <button type="submit" class="btn-primary w-full py-4 text-xs uppercase tracking-[0.2em] font-bold">Sign In</button>
+    </form>
+
+    <div class="mt-8 text-center space-y-4">
+      <p class="text-secondary text-sm">Don't have an account? <a href="register.html" class="text-gold-dark hover:text-navy font-semibold gold-underline">Register</a></p>
+    </div>
+
+    <!-- Admin Info Box -->
+    <div class="mt-10 p-6 premium-card text-center">
+      <p class="text-[10px] uppercase tracking-widest text-secondary mb-2">Admin Access</p>
+      <p class="text-xs text-on-surface-variant">admin@atelier.com / admin123</p>
+    </div>
+  </div>
+</main>
+
+<script src="js/products-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errBox = document.getElementById('login-error');
+  errBox.classList.add('hidden');
+
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) { errBox.textContent = data.error; errBox.classList.remove('hidden'); return; }
+
+    localStorage.setItem('user', JSON.stringify(data.user));
+    if (data.user.role === 'admin') { window.location.href = 'admin.html'; }
+    else { window.location.href = 'profile.html'; }
+  } catch (err) { errBox.textContent = 'Connection error'; errBox.classList.remove('hidden'); }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,448 @@
+/* ============================================================
+   ATELIER NOIR - Premium Design System
+   Rich, sophisticated palette with gold accents
+   ============================================================ */
+
+/* ---- ROOT VARIABLES ---- */
+:root {
+  --gold: #c9a96e;
+  --gold-light: #ddc9a3;
+  --gold-dark: #a68a4b;
+  --navy: #1a1a2e;
+  --navy-light: #2d2d44;
+  --charcoal: #2c2c2c;
+  --ivory: #faf8f5;
+  --ivory-dim: #f0ede8;
+  --warm-gray: #8a8580;
+  --warm-gray-light: #b5b0aa;
+  --border-soft: rgba(201, 169, 110, 0.2);
+  --border-medium: rgba(26, 26, 46, 0.1);
+  --shadow-soft: 0 4px 30px rgba(26, 26, 46, 0.06);
+  --shadow-medium: 0 8px 40px rgba(26, 26, 46, 0.1);
+  --shadow-gold: 0 4px 20px rgba(201, 169, 110, 0.15);
+}
+
+/* ---- GLOBAL ---- */
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--ivory);
+  color: var(--navy);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--gold);
+  color: #fff;
+}
+
+/* ---- TYPOGRAPHY ---- */
+h1, h2, h3, .serif, .font-headline {
+  font-family: 'Noto Serif', serif;
+}
+
+/* ---- Cart Notification Toast ---- */
+.cart-notification {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--navy);
+  color: var(--gold-light);
+  padding: 16px 36px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 9999;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--gold-dark);
+  box-shadow: var(--shadow-gold);
+}
+.cart-notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.cart-notification .material-symbols-outlined {
+  color: var(--gold);
+}
+
+/* ---- Mobile Menu Overlay ---- */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--ivory);
+  transform: translateX(-100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+.mobile-menu-overlay.open {
+  transform: translateX(0);
+}
+.mobile-menu-overlay a {
+  color: var(--navy);
+  border-bottom: 1px solid var(--border-medium);
+  padding-bottom: 16px;
+}
+.mobile-menu-overlay a:hover {
+  color: var(--gold);
+}
+
+/* ---- Scrollbar hidden ---- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---- Custom Scrollbar ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--ivory-dim); }
+::-webkit-scrollbar-thumb { background: var(--warm-gray-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ---- Material Icons ---- */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+/* ---- Page Transitions ---- */
+main {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Premium Buttons ---- */
+.btn-primary {
+  background: var(--navy);
+  color: var(--gold-light);
+  border: 1px solid transparent;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s ease;
+}
+.btn-primary:hover::after {
+  left: 100%;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--border-soft);
+  transition: all 0.4s ease;
+}
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold-dark);
+  box-shadow: var(--shadow-gold);
+}
+
+/* ---- Custom Range Slider ---- */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), var(--warm-gray-light));
+  outline: none;
+  border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  box-shadow: var(--shadow-gold);
+}
+
+/* ---- Product Card ---- */
+.product-card {
+  position: relative;
+  transition: transform 0.4s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+}
+.product-card:hover .quick-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.product-card img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+/* ---- Radio button custom ---- */
+input[type="radio"]:checked {
+  accent-color: var(--navy);
+}
+input[type="radio"] {
+  accent-color: var(--navy);
+}
+
+/* ---- Details / Accordion ---- */
+details summary::-webkit-details-marker { display: none; }
+details summary::marker { display: none; content: ''; }
+details {
+  border-bottom: 1px solid var(--border-medium);
+}
+details summary {
+  transition: color 0.3s ease;
+}
+details summary:hover {
+  color: var(--gold-dark);
+}
+
+/* ---- Focus States ---- */
+input:focus, select:focus, textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ---- Size Button ---- */
+.size-btn {
+  border: 1px solid var(--border-medium);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.size-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold-dark);
+}
+.size-btn.active,
+.size-btn.bg-primary {
+  background: var(--navy) !important;
+  color: var(--gold-light) !important;
+  border-color: var(--navy) !important;
+}
+
+/* ---- Quantity Stepper ---- */
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-soft);
+  padding: 10px 18px;
+  gap: 24px;
+  background: rgba(255,255,255,0.5);
+  transition: border-color 0.3s ease;
+}
+.qty-stepper:hover {
+  border-color: var(--gold);
+}
+.qty-stepper button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: var(--navy);
+  transition: color 0.3s ease;
+}
+.qty-stepper button:hover {
+  color: var(--gold);
+}
+
+/* ---- Category Filter ---- */
+.filter-link {
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 0;
+}
+.filter-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.filter-link:hover::after,
+.filter-link.active::after {
+  width: 100%;
+}
+.filter-link.active {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* ---- Links ---- */
+a {
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+/* ---- Gold Accent Underline ---- */
+.gold-underline {
+  position: relative;
+  display: inline-block;
+}
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), var(--gold-light));
+}
+
+/* ---- Premium Card Shadow ---- */
+.premium-card {
+  background: var(--ivory-dim);
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s ease;
+  border-radius: 12px;
+}
+.premium-card:hover {
+  box-shadow: var(--shadow-medium);
+  border-color: var(--gold);
+}
+
+/* ---- Badge Styles ---- */
+.badge-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ---- Nav Link Hover ---- */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ---- Section Divider ---- */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+
+/* ---- Glassmorphism Nav ---- */
+.glass-nav {
+  background: rgba(250, 248, 245, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-medium);
+}
+
+/* ---- Footer Styling ---- */
+.premium-footer {
+  background: var(--navy);
+  color: var(--warm-gray-light);
+}
+.premium-footer a {
+  color: var(--warm-gray-light);
+  transition: color 0.3s ease;
+}
+.premium-footer a:hover {
+  color: var(--gold);
+}
+.premium-footer h5, .premium-footer .footer-title {
+  color: var(--gold-light);
+}
+
+/* ---- Form Inputs Premium ---- */
+.premium-input {
+  background: var(--ivory-dim);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: var(--navy);
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+.premium-input:focus {
+  background: #fff;
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.15) !important;
+}
+.premium-input::placeholder {
+  color: var(--warm-gray-light);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+/* ---- Shimmer Loading Effect ---- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--ivory-dim) 25%, var(--ivory) 50%, var(--ivory-dim) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ---- Hero Overlay Gradient ---- */
+.hero-gradient {
+  background: linear-gradient(to bottom, rgba(26,26,46,0.1) 0%, rgba(26,26,46,0.5) 100%);
+}
+
+/* ---- Gold Line Separator ---- */
+.gold-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), var(--gold-light));
+}
+
+/* ---- Order Summary Card ---- */
+.summary-card {
+  background: var(--ivory-dim);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  border-radius: 16px;
+}

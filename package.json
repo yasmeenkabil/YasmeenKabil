@@ -1,0 +1,16 @@
+{
+  "name": "atelier-noir",
+  "version": "1.0.0",
+  "description": "ATELIER NOIR E-Commerce Store",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "pptxgenjs": "^4.0.1"
+  }
+}
